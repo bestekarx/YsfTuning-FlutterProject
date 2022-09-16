@@ -1,7 +1,7 @@
 # Ysf Tuning
 
 A new Flutter project.
-
+this project's api is written using c#. web services are running.
 ## Getting Started
 
 https://randevu.ysftuning.com/ site's flutter mobile project.
