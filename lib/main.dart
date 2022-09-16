@@ -15,15 +15,15 @@ import 'package:flutter_launch/flutter_launch.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MainPage());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'demo',
+      title: 'Ysf Tuning',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           hintStyle: TextStyle(color: Colors.black87),
         ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Ysf Tuning'),
     );
   }
 }
@@ -215,220 +215,231 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-      children: <Widget>[
-        Container(
-          // background image
-          decoration: const BoxDecoration(
-            // ignore: unnecessary_const
-            image: const DecorationImage(
-              image: AssetImage("bg.png"),
-              fit: BoxFit.fill,
+      body: Stack(
+        children: <Widget>[
+          Container(
+            // background image
+            decoration: const BoxDecoration(
+              // ignore: unnecessary_const
+              image: const DecorationImage(
+                image: AssetImage("bg.png"),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        Container(
-            margin: const EdgeInsets.only(top: 50),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          SingleChildScrollView(
+            child: Container(
+                margin: const EdgeInsets.only(top: 50),
+                child: Column(
                   children: [
-                    Image.asset('logo.png'),
-                  ],
-                ),
-                Card(
-                  color: Colors.white,
-                  margin: const EdgeInsets.only(
-                      top: 25, right: 25, left: 25, bottom: 25),
-                  child: Column(
-                    children: [
-                      Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset('logo.png'),
+                      ],
+                    ),
+                    Card(
+                      color: Colors.white,
+                      margin: const EdgeInsets.only(
+                          top: 25, right: 25, left: 25, bottom: 25),
+                      child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 20),
-                            child: TextField(
-                              controller: name,
-                              keyboardType: TextInputType.text,
-                              style: GoogleFonts.khand(
-                                  fontWeight: FontWeight.bold),
-                              cursorColor: Colors.black,
-                              decoration: InputDecoration(
-                                hintText: 'ad soyad',
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 20),
+                                child: TextFormField(
+                                  controller: name,
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.next,
+                                  style: GoogleFonts.khand(
+                                      fontWeight: FontWeight.bold),
+                                  cursorColor: Colors.black,
+                                  decoration: InputDecoration(
+                                    hintText: 'ad soyad',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black),
+                                    ),
+                                  ),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 20),
-                            child: TextField(
-                              controller: phone,
-                              keyboardType: TextInputType.text,
-                              style: GoogleFonts.khand(
-                                  fontWeight: FontWeight.bold),
-                              cursorColor: Colors.black,
-                              decoration: InputDecoration(
-                                hintText: 'telefon',
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black),
-                                ),
-                              ),
-                              inputFormatters: [
-                                TextInputMask(
-                                    mask: '\\ (999) 999 9999', reverse: false)
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, top: 20),
-                          child: DropdownButton(
-                            iconSize: 0.0,
-                            icon: Icon(null),
-                            isExpanded: true,
-                            value: dropdownValue,
-                            style: GoogleFonts.khand(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                            items: serviceList.map((Services map) {
-                              return new DropdownMenuItem<Services>(
-                                value: map,
-                                child: new Text(map.services_name ?? ""),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                dropdownValue = value as Services;
-                              });
-                            },
-                          )),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 20, right: 20, top: 20),
-                        child: TextFormField(
-                          enableInteractiveSelection:
-                              false, // will disable paste operation
-                          focusNode: FocusNode(),
-                          readOnly: true,
-                          onTap: () {
-                            DatePicker.showDateTimePicker(context,
-                                showTitleActions: true,
-                                minTime: DateTime.now(),
-                                maxTime: DateTime(2030, 1, 1),
-                                onChanged: (date) {
-                              nowDate = DateFormat("yyyy-MM-dd HH:mm:ss")
-                                  .format(date);
-                            }, onConfirm: (date) {
-                              setState(() {
-                                print('confirm $date');
-                                nowDate = DateFormat("yyyy-MM-dd HH:mm:ss")
-                                    .format(date);
-                              });
-                            },
-                                currentTime: DateTime.now(),
-                                locale: LocaleType.tr);
-                          },
-                          keyboardType: TextInputType.text,
-                          style: GoogleFonts.khand(fontWeight: FontWeight.bold),
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            labelText: '$nowDate',
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
+                              )
+                            ],
                           ),
-                        ),
-                      ),
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                              padding: EdgeInsets.only(
-                                  right: 20, bottom: 10, top: 20),
-                              child: ElevatedButton(
-                                style: raisedButtonStyle,
-                                onPressed: () {
-                                  setAppoiment();
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 20),
+                                child: TextFormField(
+                                  controller: phone,
+                                  keyboardType: TextInputType.phone,
+                                  textInputAction: TextInputAction.done,
+                                  style: GoogleFonts.khand(
+                                      fontWeight: FontWeight.bold),
+                                  cursorColor: Colors.black,
+                                  decoration: InputDecoration(
+                                    hintText: 'telefon',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black),
+                                    ),
+                                  ),
+                                  inputFormatters: [
+                                    TextInputMask(
+                                        mask: '\\ (999) 999 9999',
+                                        reverse: false)
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 20),
+                              child: DropdownButton(
+                                iconSize: 0.0,
+                                icon: Icon(null),
+                                isExpanded: true,
+                                value: dropdownValue,
+                                style: GoogleFonts.khand(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                                items: serviceList.map((Services map) {
+                                  return new DropdownMenuItem<Services>(
+                                    value: map,
+                                    child: new Text(map.services_name ?? ""),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    dropdownValue = value as Services;
+                                  });
                                 },
-                                child: Text(
-                                  'randevu al',
-                                  style: GoogleFonts.khand(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ))),
-                      Row(
-                        children: [
+                              )),
                           Padding(
-                            padding: EdgeInsets.only(left: 20, bottom: 10),
-                            child: GestureDetector(
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 20),
+                            child: TextFormField(
+                              enableInteractiveSelection:
+                                  false, // will disable paste operation
+                              focusNode: FocusNode(),
+                              readOnly: true,
                               onTap: () {
-                                whatsAppOpen();
-                              }, // handle your image tap here
-                              child: Image.asset(
-                                'ig.png',
-                                fit: BoxFit
-                                    .cover, // this is the solution for border
+                                DatePicker.showDateTimePicker(context,
+                                    showTitleActions: true,
+                                    minTime: DateTime.now(),
+                                    maxTime: DateTime(2030, 1, 1),
+                                    onChanged: (date) {
+                                  nowDate = DateFormat("yyyy-MM-dd HH:mm:ss")
+                                      .format(date);
+                                }, onConfirm: (date) {
+                                  setState(() {
+                                    print('confirm $date');
+                                    nowDate = DateFormat("yyyy-MM-dd HH:mm:ss")
+                                        .format(date);
+                                  });
+                                },
+                                    currentTime: DateTime.now(),
+                                    locale: LocaleType.tr);
+                              },
+                              keyboardType: TextInputType.text,
+                              style: GoogleFonts.khand(
+                                  fontWeight: FontWeight.bold),
+                              cursorColor: Colors.black,
+                              decoration: InputDecoration(
+                                labelText: '$nowDate',
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: GestureDetector(
-                                onTap: () {
-                                  urlOpen();
-                                }, // handle your image tap here
-                                child: Text(
-                                  'www.ysftuning.com',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.khand(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                  padding: EdgeInsets.only(
+                                      right: 20, bottom: 10, top: 20),
+                                  child: ElevatedButton(
+                                    style: raisedButtonStyle,
+                                    onPressed: () {
+                                      setAppoiment();
+                                    },
+                                    child: Text(
+                                      'randevu al',
+                                      style: GoogleFonts.khand(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  ))),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 20, bottom: 10),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    instagramOpen();
+                                  }, // handle your image tap here
+                                  child: Image.asset(
+                                    'ig.png',
+                                    fit: BoxFit
+                                        .cover, // this is the solution for border
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 20, bottom: 10),
-                            child: GestureDetector(
-                              onTap: () {
-                                whatsAppOpen();
-                              }, // handle your image tap here
-                              child: Image.asset(
-                                'wp.png',
-                                fit: BoxFit
-                                    .cover, // this is the solution for border
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      urlOpen();
+                                    }, // handle your image tap here
+                                    child: Text(
+                                      'www.ysftuning.com',
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.khand(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                              Padding(
+                                padding: EdgeInsets.only(right: 20, bottom: 10),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    whatsAppOpen();
+                                  }, // handle your image tap here
+                                  child: Image.asset(
+                                    'wp.png',
+                                    fit: BoxFit
+                                        .cover, // this is the solution for border
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                )
-              ],
-            )),
-      ],
-    ));
+                    )
+                  ],
+                )),
+          ),
+        ],
+      ),
+    );
   }
 }

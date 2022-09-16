@@ -1,4 +1,4 @@
-package com.example.example_flutter;
+package com.ysftuning.app;
 
 import io.flutter.embedding.android.FlutterActivity;
 
